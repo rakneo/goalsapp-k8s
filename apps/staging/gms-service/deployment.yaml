@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gms-service
+spec:
+  selector:
+    matchLabels:
+      app: gms-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: gms-service
+    spec:
+      containers:
+      - image: 432181486224.dkr.ecr.ap-south-1.amazonaws.com/gms-service:v0.1.0-gms-9
+        imagePullPolicy: Always
+        name: gms-service
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+        - name: neofinity-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gms-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 5000
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: gms-service
+
