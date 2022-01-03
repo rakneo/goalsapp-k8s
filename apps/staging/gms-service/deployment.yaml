@@ -13,7 +13,7 @@ spec:
         app: gms-service
     spec:
       containers:
-      - image: 432181486224.dkr.ecr.ap-south-1.amazonaws.com/gms-service:v0.1.0-gms-9
+      - image: 432181486224.dkr.ecr.ap-south-1.amazonaws.com/gms-service:v0.1.1
         imagePullPolicy: Always
         name: gms-service
         ports:

@@ -14,7 +14,7 @@ spec:
     - host: staging.neofinity.dev
       http:
         paths:
-        - path: /*
+        - path: /api/*
           pathType: Prefix
           backend:
             service:
