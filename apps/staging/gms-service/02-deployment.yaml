@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gms-service
+spec:
+  selector:
+    matchLabels:
+      app: gms-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: gms-service
+    spec:
+      containers:
+      - image: 432181486224.dkr.ecr.ap-south-1.amazonaws.com/gms-service:v0.1.1-rc11
+        imagePullPolicy: Always
+        name: gms-service
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_ENVIRONMENT
+          value: staging
+        - name: APP_SERVER_HOST
+          value: "0.0.0.0"
+        - name: APP_SERVER_PORT
+          value: "5000"
+        - name: APP_SERVER_READ_TIMEOUT
+          value: "60"
+        - name: APP_DATABASE_HOST
+          value: gms-staging-db.cukmoeiupeaw.ap-south-1.rds.amazonaws.com
+        - name: APP_DATABASE_PORT
+          value: "5432"
+        - name: APP_DATABASE_USER
+          value: naruto
+        - name: APP_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: gms-service-secrets
+              key: postgres_password
+        - name: APP_DATABASE_NAME
+          value: servicedb
+        - name: APP_AUTH0_DOMAIN
+          value: https://neofinity-dev.us.auth0.com
+        - name: APP_AUTH0_AUDIENCE
+          value: https://gms/api/v1
+      imagePullSecrets:
+        - name: neofinity-registry-key
+      
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gms-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 5000
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: gms-service
+
