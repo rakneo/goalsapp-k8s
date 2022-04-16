@@ -1,7 +1,7 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: neofinity
+  name: rakshith
   region: ap-south-1
   version: "1.21"
 managedNodeGroups:

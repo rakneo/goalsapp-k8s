@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goalsapp-service
+spec:
+  selector:
+    matchLabels:
+      app: goalsapp-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: goalsapp-service
+    spec:
+      containers:
+      - image: rakneo/goalsapp-svc
+        imagePullPolicy: Always
+        name: goalsapp-service
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: goalspp-secrets
+              key: mongo_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: goalsapp-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app: goalsapp-service
+

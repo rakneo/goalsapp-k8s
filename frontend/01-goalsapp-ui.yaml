@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goalsapp-ui
+spec:
+  selector:
+    matchLabels:
+      app: goalsapp-ui
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: goalsapp-ui
+    spec:
+      containers:
+      - image: rakneo/goalsapp-ui:1.0.2
+        imagePullPolicy: Always
+        name: goalsapp-ui
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: goalsapp-ui
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app: goalsapp-ui
