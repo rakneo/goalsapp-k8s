@@ -1,0 +1,15 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: neofinity
+  region: ap-south-1
+  version: "1.21"
+managedNodeGroups:
+  - name: primary
+    instanceType: t3.small
+    minSize: 3
+    maxSize: 6
+    spot: true
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_rsa.pub
