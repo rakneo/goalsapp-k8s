@@ -253,8 +253,8 @@ mongo-nodeport-svc   NodePort  10.100.172.214   <none>                          
 There are 2 manifests, for this application
 
 📦backend  
- ┣ 📜01-goalsapp-secrets.yaml  
- ┗ 📜02-goalsapp-svc.yaml
+ ┣ 📜01-serverapp-secrets.yaml  
+ ┗ 📜02-serverapp-svc.yaml
 
 the goalsapp-secrets configure the mongodb connection uri and the 2nd one has the Deployment and Service definition.
 
@@ -266,14 +266,14 @@ kubectl apply -f backend
 **Pods**
 
 ```
-goalsapp-service-558d745c9f-b4jhk   1/1     Running   0          133m
-goalsapp-service-558d745c9f-vrvnb   1/1     Running   0          133m
+serverapp-service-558d745c9f-b4jhk   1/1     Running   0          133m
+serverapp-service-558d745c9f-vrvnb   1/1     Running   0          133m
 ```
 
 **Services**
 
 ```
-goalsapp-service     LoadBalancer   10.100.196.43    ab4bb3203e58540ecbf84530e43db439-2033371937.ap-south-1.elb.amazonaws.com   80:31905/TCP      133m
+serverapp-service     LoadBalancer   10.100.196.43    ab4bb3203e58540ecbf84530e43db439-2033371937.ap-south-1.elb.amazonaws.com   80:31905/TCP      133m
 ```
 
 **Secrets**
@@ -285,7 +285,7 @@ goalsapp-service     LoadBalancer   10.100.196.43    ab4bb3203e58540ecbf84530e43
 The frontend consists only 1 manifest, 
 
 📦frontend  
- ┗ 📜01-goalsapp-ui.yaml
+ ┗ 📜01-serverapp-ui.yaml
 
 To Deploy,
 
@@ -296,18 +296,16 @@ kubectl apply -f frontend
 **Pods**
 
 ```
-goalsapp-ui-846d7ff9cf-2xdg4        1/1     Running   0          75m
-goalsapp-ui-846d7ff9cf-m5mvq        1/1     Running   0          75m
+serverapp-ui-846d7ff9cf-2xdg4        1/1     Running   0          75m
+serverapp-ui-846d7ff9cf-m5mvq        1/1     Running   0          75m
 ```
 
 **Services**
 
 ```
-goalsapp-ui  LoadBalancer   10.100.139.239   a6a797c3b753247eb8f33f85b1e8f676-1008680595.ap-south-1.elb.amazonaws.com   80:32718/TCP   126m
+serverapp-ui  LoadBalancer   10.100.139.239   a6a797c3b753247eb8f33f85b1e8f676-1008680595.ap-south-1.elb.amazonaws.com   80:32718/TCP   126m
 ```
 
 **UI Screenshot**
 
-[APP Url Here](http://a6a797c3b753247eb8f33f85b1e8f676-1008680595.ap-south-1.elb.amazonaws.com/)
-
-![enter image description here](https://i.imgur.com/QTjvEiH.png)
+[APP Url Here](http://a65a14864bc1641baa2898c3d358b82f-2066402120.ap-south-1.elb.amazonaws.com/)
